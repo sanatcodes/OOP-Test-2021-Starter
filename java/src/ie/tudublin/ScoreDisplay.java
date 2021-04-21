@@ -65,16 +65,63 @@ public class ScoreDisplay extends PApplet
 	public void setup() 
 	{
 		loadScore(score);
-		printScore(score);
+		// printScore(score);
+		
 	}
 
 	public void draw()
 	{
 		background(255);
+		drawStraveLines();
+		drawNoteText();
 		
+	}
+
+	void drawStraveLines()
+	{
+		fill(0);
+		// stroke(0);
+		strokeWeight(2);
+		float wBorder = width * 0.1f;
+		float hBorder = height * 0.41f;
+		// float gap = height * 0.005f;
+		
+		for(int i = 0; i < 5; i++)
+		{
+			float y = map(i, 1, 5,hBorder, height - hBorder);
+			line(wBorder, y, width-wBorder, y);
+		}
+
+
+		// for(Note n : notes)
+		// {	
+		// 	int i = 0;
+		// 	float x = map(i,0,notes.size(),wBorder, width -(2*wBorder));
+		// 	text(n.getNote(), x, 220);
+		// 	i++;
+		// }
+		
+	}
+
+	void drawNoteText()
+	{
+
+		float wBorder = width * 0.1f;
+		int i = 1;
+		textAlign(CENTER, CENTER);
+		textSize(18);
+
+		for(Note s: notes)
+		{	
+			float x = map(i,1,notes.size(),wBorder + 10, width - wBorder - 10);
+			text(s.getNote(),x , 120);
+			i++;
+		}
+
 	}
 
 	void drawNotes()
 	{
+
 	}
 }
