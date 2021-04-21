@@ -7,9 +7,32 @@ import processing.core.PApplet;
 
 public class ScoreDisplay extends PApplet
 {
+
+	ArrayList<Note> notes = new ArrayList<Note>();
+
 	String score = "DEFGABcd";
 	//String score = "D2E2F2G2A2B2c2d2";
 	//String score = "DEF2F2F2EFA2A2B2AFD2E2D2D2D2";
+
+	public void loadScore(String score)
+	{
+		for(int i=0; i<score.length(); i++)
+		{
+			String test = score.substring(i,i+2);
+			String local_note = score.substring(i,i+1);
+
+			//if note duration is 1 
+			if(test.charAt(1) == 1)
+			{
+				Note s = new Note(local_note,1);
+			}
+			else{
+				Note s = new Note(local_note,1);
+			}
+
+			
+		}
+	}
 	
 	public void settings()
 	{
