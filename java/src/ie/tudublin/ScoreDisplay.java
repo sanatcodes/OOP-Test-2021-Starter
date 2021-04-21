@@ -14,6 +14,10 @@ public class ScoreDisplay extends PApplet
 	// String score = "D2E2F2G2A2B2c2d2";
 	String score = "DEF2F2F2EFA2A2B2AFD2E2D2D2D2";
 
+	float wBorder = width * 0.1f;
+	float hBorder = height * 0.41f;
+	int noteClicked = -1;
+
 	public void loadScore(String score)
 	{
 		for(int i=0; i<score.length()-1; i++)
@@ -75,7 +79,10 @@ public class ScoreDisplay extends PApplet
 		drawStraveLines();
 		drawNoteText();
 		drawNotes();
-		
+		if(noteClicked != -1)
+		{
+			Note n = notes.get(noteClicked);
+		}
 	}
 
 	void drawStraveLines()
@@ -83,8 +90,7 @@ public class ScoreDisplay extends PApplet
 		fill(0);
 		// stroke(0);
 		strokeWeight(2);
-		float wBorder = width * 0.1f;
-		float hBorder = height * 0.41f;
+		
 		// float gap = height * 0.005f;
 		
 		for(int i = 0; i < 5; i++)
@@ -107,7 +113,6 @@ public class ScoreDisplay extends PApplet
 	void drawNoteText()
 	{
 
-		float wBorder = width * 0.1f;
 		int i = 1;
 		textAlign(CENTER, CENTER);
 		textSize(18);
@@ -115,19 +120,32 @@ public class ScoreDisplay extends PApplet
 		for(Note s: notes)
 		{	
 			float x = map(i,1,notes.size(),wBorder + 10, width - wBorder - 10);
+			float y = map(i, 1, 5,hBorder, height - hBorder);
 			text(s.getNote(),x , 120);
 			i++;
 		}
 
 	}
 
+	public void mouseClicked()
+	{
+		for(int i = 0; i < notes.size(); i++)
+		{
+			Note n = notes.get(i);
+			float x = map(i,1,notes.size(),wBorder + 10, width - wBorder - 10);
+			float y = map(i, 1, 5,hBorder, height - hBorder);
+			if(dist(mouseX,mouseY, x, y) < 10)
+			{
+				noteClicked = i;
+			}
+
+		}
+	}
+
 	void drawNotes()
 	{
-		float wBorder = width * 0.1f;
-		float hBorder = height * 0.41f;
 		float circleSize = 15;
 		float note_line = 21;
-		float tick = 1;
 		int i = 0;
 		fill(0);
 		
@@ -143,7 +161,7 @@ public class ScoreDisplay extends PApplet
 				switch(s.getNote())
 				{
 					case 'A' :
-						//code block
+						//code block			
 						circle(x, (height/2 - 11), circleSize);
 						line(x + (circleSize/2), (height/2 - 11), x + (circleSize/2), (228- 22 - note_line));
 						line(x + (circleSize/2), (228- 22 - note_line), (x + (circleSize/2) + 10), (228- 22 - note_line + 10 ));
