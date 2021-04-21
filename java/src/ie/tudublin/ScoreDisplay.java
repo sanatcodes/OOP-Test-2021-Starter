@@ -10,24 +10,30 @@ public class ScoreDisplay extends PApplet
 
 	ArrayList<Note> notes = new ArrayList<Note>();
 
-	String score = "DEFGABcd";
-	//String score = "D2E2F2G2A2B2c2d2";
-	//String score = "DEF2F2F2EFA2A2B2AFD2E2D2D2D2";
+	// String score = "DEFGABcd";
+	// String score = "D2E2F2G2A2B2c2d2";
+	String score = "DEF2F2F2EFA2A2B2AFD2E2D2D2D2";
 
 	public void loadScore(String score)
 	{
-		for(int i=0; i<score.length(); i++)
+		for(int i=0; i<score.length()-1; i++)
 		{
 			String test = score.substring(i,i+2);
 			String local_note = score.substring(i,i+1);
+			char n = local_note.charAt(0);
+			char n1 = test.charAt(1);
 
-			//if note duration is 1 
-			if(test.charAt(1) == 1)
+			println(test);
+			//if note duration is 2 
+			if(Character.isDigit(n1))
 			{
-				Note s = new Note(local_note,1);
+				Note s = new Note(n,1);
+				notes.add(s);
+				i++;
 			}
 			else{
-				Note s = new Note(local_note,1);
+				Note s = new Note(n,2);
+				notes.add(s);
 			}
 
 			
@@ -46,7 +52,7 @@ public class ScoreDisplay extends PApplet
 
 	public void setup() 
 	{
-		
+		loadScore(score);
 	}
 
 	public void draw()
